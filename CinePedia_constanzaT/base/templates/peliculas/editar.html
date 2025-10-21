@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Película{% endblock %}
+
+{% block content %}
+<div class="container mt-4 fade-in">
+    <h1>Editar Película</h1>
+
+    {% with messages = get_flashed_messages(category_filter=['pelicula']) %}
+    {% if messages %}
+    <div class="alert alert-danger">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <form method="POST" class="mt-4">
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Título</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" required minlength="3" 
+                value="{{ pelicula.titulo }}">
+        </div>
+        <div class="mb-3">
+            <label for="director" class="form-label">Director</label>
+            <input type="text" class="form-control" id="director" name="director" required minlength="3" value="{{ pelicula.director }}">
+        </div>
+        <div class="mb-3">
+            <label for="fecha_estreno" class="form-label">Fecha de Estreno</label>
+            <input type="date" class="form-control" id="fecha_estreno" name="fecha_estreno" required value="{{ pelicula.fecha_estreno }}">
+        </div>
+        <div class="mb-3">
+            <label for="sinopsis" class="form-label">Sinopsis</label>
+            <textarea class="form-control" id="sinopsis" name="sinopsis" rows="4" required minlength="3">{{ pelicula.sinopsis }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <a href="{{ url_for('peliculas.ver', id=pelicula.id) }}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Actualizar Película</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+
+<section class="container-fluid mx-auto fade-in">
+    <div class="container justify-content-center mt-5">
+        {% with messages = get_flashed_messages(with_categories = true) %}
+        {% if message %}
+        {% for categoria, message in messages %}
+        <div class="alert alert-{{'success' if category == 'success' else 'warning'}} alert-dismissible fade show" 
+            role="alert">
+            {{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <h1>{% block title %} Bienvenid@s, {{g.user.nombre|capitalize}} {{g.user.apellido|capitalize}} {% endblock %}</h1>
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Películas{% endblock %}
+
+{% block content %}
+<div class="container mt-4 fade-in">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Películas</h1>
+        {% if session['usuario_id'] %}
+        <a href="{{ url_for('peliculas.crear') }}" class="btn btn-primary">Crear Nueva Película</a>
+        {% endif %}
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }}" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="row">
+        {% for pelicula in peliculas %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ pelicula.titulo }}</h5>
+                    <p class="card-text">{{ pelicula.sinopsis[:150] }}...</p>
+                    <p class="card-text"><strong>Director:</strong> {{ pelicula.director }}</p>
+                    <p class="card-text"><strong>Estreno:</strong> {{ pelicula.fecha_estreno }}</p>
+                    <p class="card-text"><small class="text-muted">Por: {{ pelicula.creador.nombre }} {{ pelicula.creador.apellido }}</small></p>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="{{ url_for('peliculas.ver', id=pelicula.id) }}" class="btn btn-info">Ver</a>
+                    {% if session['usuario_id'] == pelicula.usuario_id %}
+                    <a href="{{ url_for('peliculas.editar', id=pelicula.id) }}" class="btn btn-warning">Editar</a>
+                    <form action="{{ url_for('peliculas.eliminar', id=pelicula.id) }}" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta película?')">Borrar</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

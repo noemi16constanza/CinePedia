@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinePedia - {% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #f6f2ef;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+        h1, h2, h3, h4, h5, h6, .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #5c4a3a;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 2rem;
+            color: #5c4a3a;
+        }
+        .navbar {
+            background: #bfa6a0 !important;
+            transition: background 0.7s cubic-bezier(.4,0,.2,1);
+            padding: 1rem 0;
+        }
+        .navbar .navbar-brand {
+            color: #111 !important;
+            font-weight: bold;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            transition: color 0.4s cubic-bezier(.4,0,.2,1);
+        }
+        .navbar .nav-link, .navbar .nav-link.active {
+            color: #5c4a3a !important;
+            transition: color 0.4s cubic-bezier(.4,0,.2,1);
+        }
+        .navbar .nav-link:hover {
+            color: #c97e7e !important;
+        }
+        .card {
+            background: #f3e6e3;
+            border: 1px solid #e2b8a3;
+            border-radius: 18px;
+            box-shadow: 0 2px 8px #d6c6be;
+            transition: box-shadow 0.5s cubic-bezier(.4,0,.2,1), transform 0.5s cubic-bezier(.4,0,.2,1);
+        }
+        .card .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #5c4a3a;
+            margin-bottom: 1rem;
+        }
+        .card:hover {
+            box-shadow: 0 12px 32px #d6c6be;
+            transform: translateY(-6px) scale(1.03);
+        }
+        .btn-primary, .btn-info, .btn-warning, .btn-danger, .btn-secondary {
+            border: none;
+            border-radius: 12px;
+            transition: background 0.4s cubic-bezier(.4,0,.2,1), color 0.4s cubic-bezier(.4,0,.2,1), box-shadow 0.4s cubic-bezier(.4,0,.2,1), transform 0.4s cubic-bezier(.4,0,.2,1);
+        }
+        .btn-primary {
+            background: #c97e7e;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #bfa6a0;
+            color: #5c4a3a;
+            box-shadow: 0 4px 16px #bfa6a044;
+            transform: scale(1.05);
+        }
+        .btn-info {
+            background: #e2b8a3;
+            color: #5c4a3a;
+        }
+        .btn-info:hover {
+            background: #c97e7e;
+            color: #fff;
+            transform: scale(1.05);
+        }
+        .btn-warning {
+            background: #f3e6e3;
+            color: #5c4a3a;
+        }
+        .btn-warning:hover {
+            background: #c97e7e;
+            color: #fff;
+            transform: scale(1.05);
+        }
+        .btn-danger {
+            background: #a67c6b;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #c97e7e;
+            color: #fff;
+            transform: scale(1.05);
+        }
+        .btn-secondary {
+            background: #d6c6be;
+            color: #5c4a3a;
+        }
+        .btn-secondary:hover {
+            background: #e2b8a3;
+            color: #c97e7e;
+            transform: scale(1.05);
+        }
+        .form-control, textarea {
+            border-radius: 10px;
+            border: 1px solid #e2b8a3;
+            background: #f3e6e3;
+            transition: border 0.4s cubic-bezier(.4,0,.2,1), box-shadow 0.4s cubic-bezier(.4,0,.2,1);
+        }
+        .form-control:focus, textarea:focus {
+            border: 1.5px solid #c97e7e;
+            box-shadow: 0 0 12px #c97e7e44;
+        }
+        .alert {
+            border-radius: 12px;
+            background: #e2b8a3;
+            color: #5c4a3a;
+            border: none;
+            transition: background 0.4s cubic-bezier(.4,0,.2,1);
+        }
+        footer {
+            background: #d6c6be;
+            border-radius: 0 0 18px 18px;
+            color: #5c4a3a;
+            box-shadow: 0 -2px 8px #bdbdbd;
+            transition: background 0.4s cubic-bezier(.4,0,.2,1);
+        }
+        /* Transiciones generales */
+        a, .btn, .card, .navbar, .form-control, textarea {
+            transition: all 0.4s cubic-bezier(.4,0,.2,1);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{url_for('index')}}">CinePedia</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    {% if g.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('peliculas.index') }}">Películas</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link active">{{g.user.nombre|capitalize}} {{g.user.apellido|capitalize}}</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('usuarios.logout') }}">Cerrar Sesión</a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    {% with messages = get_flashed_messages(category_filter=['general']) %}
+    {% if messages %}
+    <div class="alert alert-info mx-3 mt-3">
+        {% for message in messages %}
+        <p class="mb-0">{{ message }}</p>
+        {% endfor %}
+
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="my-4">
+        <div class="d-flex justify-content-center align-items-center col-12 text-dark">
+            <p class="m-0">Constanza Noemi Torres Suazo 4°B</p>
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
